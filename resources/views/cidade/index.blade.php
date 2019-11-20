@@ -1,14 +1,14 @@
 @extends('layouts.tads')
 @section('title')
-    Lista de estados
+    Lista de cidades
 @endsection
 
 @section('conteudo')
-    <h1>Estados</h1>
+    <h1>Cidades</h1>
     @if(session('success'))
         <div class="alert alert-success">{{session('success')}}</div>
     @endif
-    <a href="{{route('estados.create')}}" class="btn btn-success btn-sm">Novo</a>
+    <a href="{{route('cidades.create')}}" class="btn btn-success btn-sm">Novo</a>
     <hr>
     <form method="POST">
         @csrf
@@ -16,16 +16,16 @@
         <input type="text" name="pesquisa" placeholder="pesquisar" class="form-control" style="max-width: 200px;">
         <button type="submit" class="btn btn-primary">Pesquisar</button>
     </form>
-    @if(isset($estados))
-        @foreach($estados as $est)
-            {{$est->nome}} 
+    @if(isset($cidades))
+        @foreach($cidades as $cid)
+            {{$cid->nome}} 
             <h2 class="h3">
-                <a href="{{route('estados.edit', ['estado'=>$est->id])}}" class="btn btn-info shadow">Editar</a>
-                <a href="{{route('estados.confirm', ['estado'=>$est->id])}}" class="btn btn-danger shadow">Excluir</a>
+                <a href="{{route('cidades.edit', ['cidade'=>$cid->id])}}" class="btn btn-info shadow">Editar</a>
+                <a href="{{route('cidades.confirm', ['cidade'=>$cid->id])}}" class="btn btn-danger shadow">Excluir</a>
             </h2>
         @endforeach
 
-        {{$estados->links()}}    
+        {{$cidades->links()}}    
     @endif
 
 @endsection

@@ -15,7 +15,7 @@ class EstadoController extends Controller
     public function index()
     {
         //dd(request());
-        $estados = Estado::paginate(2);
+        $estados = Estado::paginate(5);
         if (request('pesquisa') != null) {
             if (trim(request('pesquisa')) != "") {
                 $estados = Estado::where('nome','like','%'.request('pesquisa').'%')->paginate(2);
@@ -32,7 +32,7 @@ class EstadoController extends Controller
      */
     public function create()
     {
-        //
+        return view('estado.create');
     }
 
     /**
@@ -43,7 +43,14 @@ class EstadoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $valid = $request->validate([
+            'nome' => 'required', 
+            'sigla'   => 'required'
+        ]);
+        Estado::create($valid);
+        return redirect('/estados')->with([
+            'success' => 'O estado foi cadastrado com sucesso!'
+        ]);
     }
 
     /**
@@ -65,7 +72,7 @@ class EstadoController extends Controller
      */
     public function edit(Estado $estado)
     {
-        //
+        return view('estado.create',compact('estado'));
     }
 
     /**
@@ -77,7 +84,16 @@ class EstadoController extends Controller
      */
     public function update(Request $request, Estado $estado)
     {
-        //
+        $valid = $request->validate([
+            'nome' => 'required', 
+            'sigla'   => 'required'
+        ]);
+
+        $estado->fill($valid);
+        $estado->save();
+        return redirect('/estados')->with([
+            'success' => 'O estado foi atualizado com sucesso!'
+        ]);
     }
 
     /**
@@ -88,6 +104,13 @@ class EstadoController extends Controller
      */
     public function destroy(Estado $estado)
     {
-        //
+        $estado->delete();
+        return redirect('/estados')->with([
+            'success' => 'O estado foi removido com sucesso!'
+        ]);
+    }
+
+    public function confirm(Estado $estado) {
+        return view('estado.confirm',compact('estado'));
     }
 }

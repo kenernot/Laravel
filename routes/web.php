@@ -28,6 +28,11 @@ Route::middleware(['tads'])->group(function () {
 	});
 
 	Route::resource('estados','EstadoController')->except(['show']);
+	Route::get('/estados/{estado}/confirm','EstadoController@confirm')->name('estados.confirm');
+
+	Route::resource('cidades','CidadeController')->except(['show']);
+	Route::get('/cidades/{cidade}/confirm','CidadeController@confirm')->name('cidades.confirm');
+
 	Route::resource('tarefas','TarefaController')->except(['show']);
 });
 

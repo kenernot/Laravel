@@ -13,6 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    <a href="{{route('estados.index')}}"></a>
 
                     You are logged in!
                 </div>
